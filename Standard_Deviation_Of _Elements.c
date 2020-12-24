@@ -1,23 +1,29 @@
-#include<stdio.h>
-#include<stdlib.h>
-int main()
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+float calculateSD(float* data);
+int main() 
 {
-    int n,i,*ptr,large;
-    printf("Enter the number of elements: ");
-    scanf("%d",&n);
-    ptr=(int *)malloc(n*sizeof(int));
-    printf("Enter the elements: ");
-    for(i=0;i<n;i++)
-    {
-        scanf("%d",(ptr+i));
-    }
-    large=*(ptr);
-    for(i=1;i<n;i++)
-    {
-        if(*(ptr+i)>large)
-        large=*(ptr+i);
-    }
-    printf("The largest element is: %d", large);
-    free(ptr);
+    int i;
+    float *data;
+    data=(float *)malloc(10*sizeof(float));
+    printf("Enter 10 elements: ");
+    for (i = 0; i < 10; ++i)
+        scanf("%f", (data+i));
+    printf("\nStandard Deviation = %.6f", calculateSD(data));
     return 0;
+}
+
+float calculateSD(float* data) 
+{
+    float sum = 0.0, mean, SD = 0.0;
+    int i;
+    for (i = 0; i < 10; ++i) 
+    {
+        sum += *(data+i);
+    }
+    mean = sum / 10;
+    for (i = 0; i < 10; ++i)
+        SD += pow(*(data+i) - mean, 2);
+    return sqrt(SD / 10);
 }
